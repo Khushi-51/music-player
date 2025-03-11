@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - JioSaavn Music App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <img src="/assets/images/logo.svg" alt="JioSaavn Music App">
+        <h1>JioSaavn Music App</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/search.html">Search</a></li>
+          <li><a href="/playlists.html">Playlists</a></li>
+          <li><a href="/login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="auth-container">
+        <h2>Create an Account</h2>
+        <div id="error-message" class="error-message"></div>
+        
+        <form id="register-form" class="auth-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          
+          <button type="submit" class="btn primary">Register</button>
+        </form>
+        
+        <p class="auth-link">Already have an account? <a href="/login.html">Login</a></p>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2023 JioSaavn Music App. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

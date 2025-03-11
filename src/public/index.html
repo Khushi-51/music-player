@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JioSaavn Music App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <img src="/assets/images/logo.svg" alt="JioSaavn Music App">
+        <h1>JioSaavn Music App</h1>
+      </div>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/search.html">Search</a></li>
+          <li><a href="/playlists.html">Playlists</a></li>
+          <li id="auth-nav"><a href="/login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="hero">
+        <h1>Your Music, Anywhere</h1>
+        <p>Stream, download, and enjoy millions of songs with our JioSaavn integration</p>
+        <div class="cta-buttons">
+          <a href="/search.html" class="btn primary">Search Music</a>
+          <a href="/register.html" class="btn secondary" id="register-btn">Create Account</a>
+        </div>
+      </section>
+      
+      <section class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Create Playlists</h3>
+            <p>Create and manage your own playlists with your favorite songs</p>
+          </div>
+          <div class="feature-card">
+            <h3>AI Recommendations</h3>
+            <p>Get personalized music recommendations based on your listening history</p>
+          </div>
+          <div class="feature-card">
+            <h3>Offline Listening</h3>
+            <p>Download songs for offline listening anytime, anywhere</p>
+          </div>
+          <div class="feature-card">
+            <h3>Lyrics &amp; Karaoke</h3>
+            <p>View lyrics and enjoy karaoke mode with timed lyrics</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2023 JioSaavn Music App. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <script src="/js/api.js"></script>
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token');
+      const authNav = document.getElementById('auth-nav');
+      const registerBtn = document.getElementById('register-btn');
+      
+      if (token) {
+        authNav.innerHTML = '<a href="#" id="logout-btn">Logout</a>';
+        if (registerBtn) {
+          registerBtn.textContent = 'My Playlists';
+          registerBtn.href = '/playlists.html';
+        }
+        
+        // Add logout functionality
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.href = '/';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

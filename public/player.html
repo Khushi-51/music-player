@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player - JioSaavn Music App</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/player.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <img src="/assets/images/logo.svg" alt="JioSaavn Music App">
+        <h1>JioSaavn Music App</h1>
+      </div>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/playlists">Playlists</a></li>
+          <li id="auth-nav"><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="player-container">
+        <div class="player-wrapper">
+          <div class="song-info">
+            <div class="album-art">
+              <img id="album-art" src="/assets/images/placeholder.jpg" alt="Album Art">
+            </div>
+            <div class="song-details">
+              <h2 id="song-title">Song Title</h2>
+              <p id="song-artist">Artist Name</p>
+              <p id="song-album">Album Name</p>
+            </div>
+          </div>
+          
+          <div class="player-controls">
+            <div class="progress-container">
+              <span id="current-time">0:00</span>
+              <div class="progress-bar">
+                <div id="progress"></div>
+              </div>
+              <span id="duration">0:00</span>
+            </div>
+            
+            <div class="controls">
+              <button id="prev-btn" class="control-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M19 20L9 12l10-8v16zM5 4v16H3V4h2z"/>
+                </svg>
+              </button>
+              <button id="play-btn" class="control-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </button>
+              <button id="next-btn" class="control-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M5 4l10 8-10 8V4zm14 0v16h2V4h-2z"/>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="extra-controls">
+              <button id="download-btn" class="extra-btn" title="Download">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+              </button>
+              <button id="lyrics-btn" class="extra-btn" title="Lyrics">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-2 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 8H8v-.57c0-.81.48-1.53 1.22-1.85.85-.37 1.79-.58 2.78-.58.99 0 1.93.21 2.78.58.74.32 1.22 1.04 1.22 1.85V18z"/>
+                </svg>
+              </button>
+              <button id="add-to-playlist-btn" class="extra-btn" title="Add to Playlist">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M14 10H2v2h12v-2zm0-4H2v2h12V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM2 16h8v-2H2v2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="lyrics-container" class="lyrics-container hidden">
+          <div class="lyrics-header">
+            <h3>Lyrics</h3>
+            <button id="close-lyrics" class="btn secondary">Close</button>
+          </div>
+          <div id="lyrics-content"></div>
+        </div>
+        
+        <div id="playlists-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Add to Playlist</h3>
+              <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div id="playlists-list-modal"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2023 JioSaavn Music App. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <audio id="audio-player"></audio>
+  
+  <script src="/js/api.js"></script>
+  <script src="/js/player.js"></script>
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token');
+      const authNav = document.getElementById('auth-nav');
+      
+      if (token) {
+        authNav.innerHTML = '<a href="#" id="logout-btn">Logout</a>';
+        
+        // Add logout functionality
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.href = '/';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search - JioSaavn Music App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <img src="/assets/images/logo.svg" alt="JioSaavn Music App">
+        <h1>JioSaavn Music App</h1>
+      </div>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/search" class="active">Search</a></li>
+          <li><a href="/playlists">Playlists</a></li>
+          <li id="auth-nav"><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="search-container">
+        <h2>Search Music</h2>
+        
+        <div class="search-form">
+          <input type="text" id="search-input" placeholder="Search for songs, albums, or artists...">
+          <select id="search-type">
+            <option value="songs">Songs</option>
+            <option value="albums">Albums</option>
+            <option value="playlists">Playlists</option>
+            <option value="podcasts">Podcasts</option>
+          </select>
+          <button id="search-button" class="btn primary">Search</button>
+        </div>
+        
+        <div id="search-results" class="results-container">
+          <!-- Search results will be displayed here -->
+        </div>
+        
+        <div id="loading" class="loading-spinner hidden">
+          <div class="spinner"></div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2023 JioSaavn Music App. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <script src="/js/api.js"></script>
+  <script src="/js/search.js"></script>
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token');
+      const authNav = document.getElementById('auth-nav');
+      
+      if (token) {
+        authNav.innerHTML = '<a href="#" id="logout-btn">Logout</a>';
+        
+        // Add logout functionality
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.href = '/';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

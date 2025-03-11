@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Playlists - JioSaavn Music App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <img src="/assets/images/logo.svg" alt="JioSaavn Music App">
+        <h1>JioSaavn Music App</h1>
+      </div>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/playlists" class="active">Playlists</a></li>
+          <li id="auth-nav"><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="playlists-container">
+        <div class="playlists-header">
+          <h2>My Playlists</h2>
+          <button id="create-playlist-btn" class="btn primary">Create New Playlist</button>
+        </div>
+        
+        <div id="create-playlist-form" class="hidden">
+          <h3>Create New Playlist</h3>
+          <form id="playlist-form">
+            <div class="form-group">
+              <label for="playlist-name">Playlist Name</label>
+              <input type="text" id="playlist-name" required>
+            </div>
+            <div class="form-group">
+              <label for="playlist-description">Description (optional)</label>
+              <textarea id="playlist-description"></textarea>
+            </div>
+            <div class="form-group checkbox">
+              <input type="checkbox" id="playlist-public">
+              <label for="playlist-public">Make playlist public</label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Create</button>
+              <button type="button" id="cancel-create" class="btn secondary">Cancel</button>
+            </div>
+          </form>
+        </div>
+        
+        <div id="playlists-list" class="playlists-grid">
+          <!-- Playlists will be displayed here -->
+        </div>
+        
+        <div id="playlist-detail" class="hidden">
+          <div class="playlist-header">
+            <button id="back-to-playlists" class="btn secondary">Back to Playlists</button>
+            <h3 id="playlist-detail-name"></h3>
+            <p id="playlist-detail-description"></p>
+          </div>
+          
+          <div id="playlist-songs">
+            <!-- Songs in the playlist will be displayed here -->
+          </div>
+        </div>
+        
+        <div id="loading" class="loading-spinner hidden">
+          <div class="spinner"></div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2023 JioSaavn Music App. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <script src="/js/api.js"></script>
+  <script src="/js/playlists.js"></script>
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token');
+      const authNav = document.getElementById('auth-nav');
+      
+      if (token) {
+        authNav.innerHTML = '<a href="#" id="logout-btn">Logout</a>';
+        
+        // Add logout functionality
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.href = '/';
+        });
+      } else {
+        // Redirect to login if not logged in
+        window.location.href = '/login?redirect=playlists.html';
+      }
+    });
+  </script>
+</body>
+</html>
